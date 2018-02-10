@@ -1,0 +1,24 @@
+{
+  "name": "keksobooking",
+  "version": "1.0.0",
+  "description": "Keksobooking project",
+  "main": "index.js",
+  "scripts": {
+    "test:lint": "eslint .",
+    "test": "npm run test:lint"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/iren-a/295889-keksobooking-node.git"
+  },
+  "author": "Irina Arinushkina",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/iren-a/295889-keksobooking-node/issues"
+  },
+  "homepage": "https://github.com/iren-a/295889-keksobooking-node#readme",
+  "devDependencies": {
+    "eslint": "4.17.0",
+    "eslint-config-htmlacademy": "0.4.2"
+  }
+}

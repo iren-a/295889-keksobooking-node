@@ -1,4 +1,4 @@
-const command = process.argv[2];
+const command = process.argv[2] ? process.argv[2] : null;
 
 switch (command) {
   case `--version`:
@@ -12,7 +12,7 @@ switch (command) {
 
     break;
 
-  case undefined:
+  case null:
     console.log(`Привет!\n` +
       `Эта программа будет запускать сервер «Кексобукинг».\n` +
       `Автор: Кекс.`);
