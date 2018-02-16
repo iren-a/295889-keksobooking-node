@@ -1,4 +1,4 @@
-require(`colors`);
+const colors = require(`colors`);
 
 const packageInfo = require(`../package.json`);
 
@@ -6,6 +6,6 @@ module.exports = {
   name: `--description`,
   description: `Описание приложения`,
   execute() {
-    console.log(packageInfo.description.gray);
+    console.log(colors.gray(packageInfo.description));
   }
 };
