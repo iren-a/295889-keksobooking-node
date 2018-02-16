@@ -1,4 +1,4 @@
-require(`colors`);
+const colors = require(`colors`);
 
 const packageInfo = require(`../package.json`);
 
@@ -8,6 +8,6 @@ module.exports = {
   name: `--version`,
   description: `Версия приложения`,
   execute() {
-    console.log(`v${version[0].red}.${version[1].green}.${version[2].blue}`);
+    console.log(`v${colors.red(version[0])}.${colors.green(version[1])}.${colors.blue(version[2])}`);
   }
 };

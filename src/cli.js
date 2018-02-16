@@ -3,8 +3,6 @@ const descriptionCommand = require(`./description`);
 const helpCommand = require(`./help`);
 const versionCommand = require(`./version`);
 
-const packageInfo = require(`../package.json`);
-
 const commands = {
   [authorCommand.name]: authorCommand.execute,
   [descriptionCommand.name]: descriptionCommand.execute,
@@ -15,7 +13,7 @@ const commands = {
 const args = process.argv.slice(2);
 
 if (args.length === 0) {
-  console.log(packageInfo.description);
+  commands[descriptionCommand.name]();
   process.exit(0);
 }
 
