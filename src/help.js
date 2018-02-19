@@ -8,6 +8,7 @@ module.exports = {
 ${colors.gray(`--help`)}  — ${colors.green(`печатает этот текст;`)}
 ${colors.gray(`--version`)} — ${colors.green(`печатает версию приложения;`)}
 ${colors.gray(`--author`)} — ${colors.green(`печатает автора приложения;`)}
-${colors.gray(`--description`)} — ${colors.green(`печатает описание приложения;`)}`);
+${colors.gray(`--description`)} — ${colors.green(`печатает описание приложения;`)}
+${colors.gray(`--generate`)} — ${colors.green(`генерирует данные;`)}`);
   }
 };
