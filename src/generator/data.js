@@ -45,6 +45,7 @@ module.exports = {
   ROOMS: {
     MIN: 1,
     MAX: 5
-  }
+  },
+  ADDRESS: `https://robohash.org`
 
 };

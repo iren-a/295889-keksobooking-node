@@ -12,6 +12,7 @@ const rl = readline.createInterface({
   output: process.stdout
 });
 
+
 // rl.question[util.promisify.custom] = (arg) => {
 //   return new Promise((resolve) => {
 //     rl.question(arg, resolve);
@@ -44,19 +45,19 @@ module.exports = {
 
     descriptionCommand.execute();
 
-    question(`Запустить генерацию данных? y/n: `)
+    question(colors.cyan(`Запустить генерацию данных? y/n: `))
         .then((answer) => {
           if (answer.trim() !== `y`) {
             throw new CanceledGeneration();
           }
-          return question(`Сколько элементов сгенерировать? Введите число: `);
+          return question(colors.cyan(`Сколько элементов сгенерировать? Введите число: `));
         })
         .then((answer) => {
           countOfElements = +answer;
           if (!(countOfElements > 0)) {
             throw new Error(`Указано неверное число`);
           }
-          return question(`Укажите путь до файла: `);
+          return question(colors.cyan(`Укажите путь до файла: `));
         })
         .then((answer) => {
           filePath = answer.trim();
@@ -66,7 +67,7 @@ module.exports = {
           return access(filePath, fs.constants.F_OK);
         })
         .then(() => {
-          return question(`Файл уже существует. Перезаписать? y/n: `)
+          return question(colors.cyan(`Файл уже существует. Перезаписать? y/n: `))
               .then((answer) => {
                 if (answer.trim() !== `y`) {
                   throw new CanceledGeneration();
