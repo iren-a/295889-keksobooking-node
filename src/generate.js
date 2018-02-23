@@ -4,12 +4,14 @@ const util = require(`util`);
 const writeFile = util.promisify(fs.writeFile);
 
 const fileWriteOptions = {encoding: `utf-8`, mode: 0o644};
-const data = generateEntity();
 
 module.exports = {
   name: `--generate`,
   description: `Генерация данных`,
-  execute(filePath = `${process.cwd()}/offers-data.json`) {
+  execute(filePath = `${process.cwd()}/offers-data.json`, countOfElements = 1) {
+    const data = new Array(countOfElements).fill(null).map(() =>
+      generateEntity()
+    );
     return writeFile(filePath, JSON.stringify(data), fileWriteOptions);
   }
 };
