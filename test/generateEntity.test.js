@@ -1,5 +1,5 @@
 const assert = require(`assert`);
-const {generateEntity} = require(`../src/generator/generateEntity`);
+const {generateEntity} = require(`../src/generator/generate-entity`);
 const data = require(`../src/generator/data`);
 
 const entity = generateEntity();

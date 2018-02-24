@@ -4,15 +4,25 @@ const getRandomInteger = (min, max) => {
   return Math.floor(min + Math.random() * (max + 1 - min));
 };
 
+const shuffleArray = (array) => {
+  for (let i = array.length - 1; i > 0; i--) {
+    let j = Math.floor(Math.random() * (i + 1));
+    [array[i], array[j]] = [array[j], array[i]];
+  }
+};
+
 const location = {
   x: getRandomInteger(300, 900),
   y: getRandomInteger(150, 500)
 };
 
 const generateEntity = () => {
+  const shuffledPhotos = [...data.PHOTOS];
+  shuffleArray(shuffledPhotos);
+
   return {
     author: {
-      avatar: `https://robohash.org/${getRandomInteger(1, 100)}`
+      avatar: `${data.ADDRESS}/${getRandomInteger(1, 100)}`
     },
     offer: {
       title: data.TITLES[getRandomInteger(0, data.TITLES.length - 1)],
@@ -25,7 +35,7 @@ const generateEntity = () => {
       checkout: data.CHECKOUT_TIMES[getRandomInteger(0, data.CHECKOUT_TIMES.length - 1)],
       features: data.FEATURES.slice(0, getRandomInteger(1, data.FEATURES.length)),
       description: ``,
-      photos: data.PHOTOS
+      photos: shuffledPhotos
     },
     location: {
       x: location.x,
