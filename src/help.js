@@ -9,6 +9,8 @@ ${colors.gray(`--help`)}  — ${colors.green(`печатает этот текс
 ${colors.gray(`--version`)} — ${colors.green(`печатает версию приложения;`)}
 ${colors.gray(`--author`)} — ${colors.green(`печатает автора приложения;`)}
 ${colors.gray(`--description`)} — ${colors.green(`печатает описание приложения;`)}
-${colors.gray(`--generate`)} — ${colors.green(`генерирует данные;`)}`);
+${colors.gray(`--generate`)} — ${colors.green(`генерирует данные;`)}
+${colors.gray(`--server`)} — ${colors.green(`запускает сервер;`)}`);
+    process.exit(0);
   }
 };

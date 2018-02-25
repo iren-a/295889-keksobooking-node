@@ -9,5 +9,6 @@ module.exports = {
   description: `Версия приложения`,
   execute() {
     console.log(`v${colors.red(version[0])}.${colors.green(version[1])}.${colors.blue(version[2])}`);
+    process.exit(0);
   }
 };
