@@ -3,6 +3,7 @@ const descriptionCommand = require(`./description`);
 const helpCommand = require(`./help`);
 const versionCommand = require(`./version`);
 const generateCommand = require(`./generate`);
+const serverCommand = require(`./server`);
 const unknownCommandError = require(`./unknown-command-error`);
 const defaultRun = require(`./default`);
 
@@ -14,6 +15,7 @@ const commands = new Map([
   [helpCommand.name, helpCommand.execute],
   [versionCommand.name, versionCommand.execute],
   [generateCommand.name, generateCommand.execute],
+  [serverCommand.name, serverCommand.execute],
   [null, defaultRun.execute]
 ]);
 

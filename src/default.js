@@ -12,20 +12,11 @@ const rl = readline.createInterface({
   output: process.stdout
 });
 
-
-// rl.question[util.promisify.custom] = (arg) => {
-//   return new Promise((resolve) => {
-//     rl.question(arg, resolve);
-//   });
-// };
-// const question = util.promisify(rl.question);
-
 const question = (arg) => {
   return new Promise((resolve) => {
     rl.question(arg, resolve);
   });
 };
-
 
 class CanceledGeneration extends Error {
   constructor() {
@@ -88,8 +79,8 @@ module.exports = {
         })
         .catch((err) => {
           if (err instanceof CanceledGeneration) {
-            console.error(colors.yellow(err.message));
-            process.exit(1);
+            console.log(colors.yellow(err.message));
+            process.exit(0);
           } else {
             console.error(colors.red(err));
             process.exit(1);
