@@ -1,6 +1,6 @@
 const colors = require(`colors`);
 
-const packageInfo = require(`../package.json`);
+const packageInfo = require(`../../package.json`);
 
 module.exports = {
   name: `--description`,

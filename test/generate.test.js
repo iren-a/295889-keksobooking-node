@@ -5,7 +5,7 @@ const unlink = util.promisify(fs.unlink);
 const readFile = util.promisify(fs.readFile);
 const assert = require(`assert`);
 
-const generateCommand = require(`../src/generate`);
+const generateCommand = require(`../src/cli/generate`);
 
 const fileReadOptions = {encoding: `utf-8`, mode: 0o644};
 
