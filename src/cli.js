@@ -20,7 +20,7 @@ const commands = new Map([
 ]);
 
 if (commands.has(arg)) {
-  commands.get(arg)();
+  commands.get(arg)(process.argv[3]);
 } else {
   unknownCommandError.execute(arg);
 }

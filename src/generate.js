@@ -1,4 +1,4 @@
-const {generateEntity} = require(`./generator/generate-entity`);
+const {generateOffer} = require(`./generator/generate-offer`);
 const fs = require(`fs`);
 const util = require(`util`);
 const writeFile = util.promisify(fs.writeFile);
@@ -10,7 +10,7 @@ module.exports = {
   description: `Генерация данных`,
   execute(filePath = `${process.cwd()}/offers-data.json`, countOfElements = 1) {
     const data = new Array(countOfElements).fill(null).map(() =>
-      generateEntity()
+      generateOffer()
     );
     return writeFile(filePath, JSON.stringify(data), fileWriteOptions);
   }

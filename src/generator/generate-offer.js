@@ -16,7 +16,7 @@ const location = {
   y: getRandomInteger(150, 500)
 };
 
-const generateEntity = () => {
+const generateOffer = () => {
   const shuffledPhotos = [...data.PHOTOS];
   shuffleArray(shuffledPhotos);
 
@@ -40,10 +40,11 @@ const generateEntity = () => {
     location: {
       x: location.x,
       y: location.y
-    }
+    },
+    date: +new Date(2018, 1)
   };
 };
 
 module.exports = {
-  generateEntity
+  generateOffer
 };

@@ -1,101 +1,82 @@
-const http = require(`http`);
-const fs = require(`fs`);
-const url = require(`url`);
-const util = require(`util`);
-const path = require(`path`);
-const stat = util.promisify(fs.stat);
-const readdir = util.promisify(fs.readdir);
-const readfile = util.promisify(fs.readFile);
+const express = require(`express`);
+const bodyParser = require(`body-parser`);
+const multer = require(`multer`);
+const {generateOffer} = require(`./generator/generate-offer`);
 
 const HOSTNAME = `127.0.0.1`;
 const PORT = 3000;
-const STATIC_PATH = __dirname + `/../static`;
 
-const EXTENSION_MAP = {
-  '.css': `text/css`,
-  '.html': `text/html`,
-  '.jpg': `image/jpeg`,
-  '.jpeg': `image/jpeg`,
-  '.png': `image/png`,
-  '.gif': `image/gif`,
-  '.ico': `image/x-icon`,
+const SKIP_DEFAULT = 0;
+const LIMIT_DEFAULT = 20;
+
+const offers = new Array(30).fill(null).map(() =>
+  generateOffer()
+);
+
+class QueryError extends Error {
+  constructor() {
+    super();
+    this.name = `QueryError`;
+    this.message = `Некорректный запрос`;
+  }
+}
+
+const toPage = (data, skip, limit) => {
+  return {
+    data: data.slice(skip, skip + limit),
+    skip,
+    limit,
+    total: data.length
+  };
 };
 
-const printDirectory = (filepath, files) => {
-  return `<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Directory content</title>
-</head>
-<body>
-<ul>
-    ${files.map((it) => `<li><a href="${path.relative(STATIC_PATH, filepath)}/${it}">${it}</a></li>`).join(``)}
-</ul>
-</body>
-</html>`;
-};
+const app = express();
+app.use(express.static(`static`));
 
-const readFile = async (filepath, res) => {
-  const data = await readfile(filepath);
-  const extension = path.extname(filepath);
-  res.setHeader(`content-type`, EXTENSION_MAP[extension] || `text/plain`);
-  res.setHeader(`content-length`, Buffer.byteLength(data));
-  res.end(data);
-};
+app.use(bodyParser.json());
 
+const upload = multer({storage: multer.memoryStorage()});
 
-const readDir = async (filepath, res) => {
-  const files = await readdir(filepath);
-  res.setHeader(`content-type`, `text/html`);
-  const content = printDirectory(filepath, files);
-  res.setHeader(`content-length`, Buffer.byteLength(content));
-  res.end(content);
-};
+app.get(`/api/offers`, (req, res) => {
+  let skip = req.query.skip || SKIP_DEFAULT;
+  let limit = req.query.limit || LIMIT_DEFAULT;
+  skip = +skip;
+  limit = +limit;
 
-const server = http.createServer((req, res) => {
-  const reqPathName = url.parse(req.url).pathname;
-  const filepath = STATIC_PATH + (reqPathName === `/` ? `/index.html` : reqPathName);
+  if (isNaN(skip) || isNaN(limit)) {
+    throw new QueryError();
+  }
+  res.send(toPage(offers, skip, limit));
+});
 
-  (async () => {
-    try {
-      const pathStat = await stat(filepath);
+app.get(`/api/offers/:date`, (req, res) => {
+  const date = +req.params[`date`];
+  const offer = offers.find((item) => item.date === date);
+  if (!offer) {
+    res.status(404).end();
+  } else {
+    res.send(offer);
+  }
+});
 
-      res.statusCode = 200;
-      res.statusMessage = `OK`;
-      res.setHeader(`content-type`, `text/plain`);
+app.post(`/api/offers`, upload.none(), (req, res) => {
+  res.send(req.body);
+});
 
-      if (pathStat.isDirectory()) {
-        await readDir(filepath, res);
-      } else {
-        await readFile(filepath, res);
-      }
-
-    } catch (err) {
-      res.writeHead(404, `Not found`, {
-        'content-type': `text/plain`
-      });
-      res.end(err.message);
-    }
-
-
-  })().catch((err) => {
-    res.writeHead(500, err.message, {
-      'content-type': `text/plain`
-    });
-    res.end(err.message);
-  });
-
+app.use((exception, req, res, next) => {
+  let data = exception.message;
+  res.status(400).send(data);
+  next();
 });
 
 
 module.exports = {
   name: `--server`,
   description: `Запуск сервера`,
-  execute() {
-    server.listen(PORT, HOSTNAME, () => {
-      console.log(`Server running at http://${HOSTNAME}:${PORT}`);
+  execute(port = PORT) {
+    app.listen(port, HOSTNAME, () => {
+      console.log(`Server running at http://${HOSTNAME}:${port}`);
     });
-  }
+  },
+  app
 };
-

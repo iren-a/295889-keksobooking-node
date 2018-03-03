@@ -20,10 +20,14 @@
   "homepage": "https://github.com/iren-a/295889-keksobooking-node#readme",
   "devDependencies": {
     "eslint": "4.17.0",
-    "eslint-config-htmlacademy": "0.4.2"
+    "eslint-config-htmlacademy": "0.4.2",
+    "mocha": "5.0.1",
+    "supertest": "3.0.0"
   },
   "dependencies": {
+    "body-parser": "1.18.2",
     "colors": "1.1.2",
-    "mocha": "5.0.1"
+    "express": "4.16.2",
+    "multer": "1.3.0"
   }
 }
