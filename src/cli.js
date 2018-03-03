@@ -1,11 +1,11 @@
-const authorCommand = require(`./author`);
-const descriptionCommand = require(`./description`);
-const helpCommand = require(`./help`);
-const versionCommand = require(`./version`);
-const generateCommand = require(`./generate`);
-const serverCommand = require(`./server`);
-const unknownCommandError = require(`./unknown-command-error`);
-const defaultRun = require(`./default`);
+const authorCommand = require(`./cli/author`);
+const descriptionCommand = require(`./cli/description`);
+const helpCommand = require(`./cli/help`);
+const versionCommand = require(`./cli/version`);
+const generateCommand = require(`./cli/generate`);
+const serverCommand = require(`./cli/run-server`);
+const unknownCommandError = require(`./cli/unknown-command-error`);
+const defaultRun = require(`./cli/default`);
 
 let arg = process.argv[2] ? process.argv[2] : null;
 

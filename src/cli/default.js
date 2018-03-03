@@ -2,7 +2,6 @@ const colors = require(`colors`);
 const util = require(`util`);
 const readline = require(`readline`);
 const fs = require(`fs`);
-const descriptionCommand = require(`./description`);
 const generateCommand = require(`./generate`);
 
 const access = util.promisify(fs.access);
@@ -33,8 +32,6 @@ module.exports = {
   execute() {
     let countOfElements;
     let filePath;
-
-    descriptionCommand.execute();
 
     question(colors.cyan(`Запустить генерацию данных? y/n: `))
         .then((answer) => {
