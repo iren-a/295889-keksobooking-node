@@ -1,5 +1,8 @@
 const request = require(`supertest`);
-const {app} = require(`../src/server/server`);
+const mockOffersRouter = require(`./mock-offers-router`);
+const app = require(`express`)();
+
+app.use(`/api/offers`, mockOffersRouter);
 
 describe(`POST /api/offers`, function () {
 

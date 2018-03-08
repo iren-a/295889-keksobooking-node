@@ -3,7 +3,7 @@ const descriptionCommand = require(`./cli/description`);
 const helpCommand = require(`./cli/help`);
 const versionCommand = require(`./cli/version`);
 const generateCommand = require(`./cli/generate`);
-const serverCommand = require(`./cli/run-server`);
+const serverCommand = require(`./cli/server`);
 const unknownCommandError = require(`./cli/unknown-command-error`);
 const defaultRun = require(`./cli/default`);
 
