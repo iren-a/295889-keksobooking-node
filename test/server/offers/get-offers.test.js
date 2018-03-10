@@ -1,6 +1,9 @@
 const request = require(`supertest`);
 const assert = require(`assert`);
-const {app} = require(`../src/server/server`);
+const mockOffersRouter = require(`./mock-offers-router`);
+const app = require(`express`)();
+
+app.use(`/api/offers`, mockOffersRouter);
 
 describe(`GET /api/offers`, function () {
 
@@ -32,7 +35,7 @@ describe(`GET /api/offers`, function () {
   it(`by incorrect query should respond with 400`, () => {
     return request(app)
         .get(`/api/offers?skip=incorrect&limit=incorrect`)
-        .set(`Accept`, `application/json`)
+        .set(`Accept`, `text/html`)
         .expect(400)
         .expect(`Content-Type`, /html/);
   });
