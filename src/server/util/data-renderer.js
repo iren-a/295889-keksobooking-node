@@ -1,9 +1,12 @@
 const util = require(`util`);
 const ValidationError = require(`../error/validation-error`);
+const NotFoundError = require(`../error/not-found-error`);
 const {MongoError} = require(`mongodb`);
 
 const SUCCESS_CODE = 200;
 const BAD_DATA_CODE = 400;
+const NOT_FOUND = 404;
+const INTERNAL_ERROR = 500;
 
 const renderErrorHtml = (errors, backUrl) => {
   // language=HTML
@@ -65,15 +68,17 @@ module.exports = {
     let data = exception;
     if (exception instanceof ValidationError) {
       data = exception.errors;
+    } else if (exception instanceof NotFoundError) {
+      data.code = NOT_FOUND;
     } else if (exception instanceof MongoError) {
       data = {};
       switch (exception.code) {
         case 11000:
-          data.code = 400;
+          data.code = BAD_DATA_CODE;
           data.errorMessage = `Дубликат существующего объявления`;
           break;
         default:
-          data.code = 501;
+          data.code = INTERNAL_ERROR;
           data.errorMessage = exception.message;
       }
     }
