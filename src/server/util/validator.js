@@ -36,8 +36,8 @@ const validate = (data, fieldName, {required = false, converter = DEFAULT_CONVER
     } else if (required) {
       errors.push(printError(fieldName, rawValue, `is required`));
     }
-  } catch (e) {
-    errors.push(printError(fieldName, rawValue, e.message));
+  } catch (err) {
+    errors.push(printError(fieldName, rawValue, err.message));
   }
 
   return errors;

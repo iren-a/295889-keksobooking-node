@@ -9,10 +9,17 @@ const ValidationError = require(`../error/validation-error`);
 const NotFoundError = require(`../error/not-found-error`);
 const QueryError = require(`../error/query-error`);
 const async = require(`../util/async`);
+const logger = require(`../../logger`);
 
 const offersRouter = new Router();
 
 offersRouter.use(bodyParser.json());
+
+offersRouter.use((req, res, next) => {
+  res.header(`Access-Control-Allow-Origin`, `*`);
+  res.header(`Access-Control-Allow-Headers`, `Origin, X-Requested-With, Content-Type, Accept`);
+  next();
+});
 
 const upload = multer({storage: multer.memoryStorage()});
 
@@ -67,6 +74,8 @@ offersRouter.post(``, upload.fields(fields), async(async (req, res) => {
       data.preview = preview;
     }
   }
+  data.date = Date.now();
+  logger.info(`Received data: `, data);
 
   const errors = validateSchema(data, keksobookingSchema);
 
