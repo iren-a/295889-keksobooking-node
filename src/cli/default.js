@@ -4,6 +4,8 @@ const readline = require(`readline`);
 const fs = require(`fs`);
 const generateCommand = require(`./generate`);
 
+const NO_SUCH_FILE = `ENOENT`;
+
 const access = util.promisify(fs.access);
 
 const rl = readline.createInterface({
@@ -63,7 +65,7 @@ module.exports = {
               });
         },
         (err) => {
-          if (err.code !== `ENOENT`) {
+          if (err.code !== NO_SUCH_FILE) {
             throw err;
           }
         })

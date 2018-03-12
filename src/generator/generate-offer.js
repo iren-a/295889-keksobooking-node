@@ -4,6 +4,9 @@ const getRandomInteger = (min, max) => {
   return Math.floor(min + Math.random() * (max + 1 - min));
 };
 
+const LOCATION_X = getRandomInteger(300, 900);
+const LOCATION_Y = getRandomInteger(150, 500);
+
 const shuffleArray = (array) => {
   for (let i = array.length - 1; i > 0; i--) {
     let j = Math.floor(Math.random() * (i + 1));
@@ -12,8 +15,8 @@ const shuffleArray = (array) => {
 };
 
 const location = {
-  x: getRandomInteger(300, 900),
-  y: getRandomInteger(150, 500)
+  x: LOCATION_X,
+  y: LOCATION_Y
 };
 
 const generateOffer = () => {

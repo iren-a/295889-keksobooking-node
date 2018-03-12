@@ -8,6 +8,8 @@ const BAD_DATA_CODE = 400;
 const NOT_FOUND = 404;
 const INTERNAL_ERROR = 500;
 
+const DUPLICATE_KEY = 11000;
+
 const renderErrorHtml = (errors, backUrl) => {
   // language=HTML
   return `
@@ -73,7 +75,7 @@ module.exports = {
     } else if (exception instanceof MongoError) {
       data = {};
       switch (exception.code) {
-        case 11000:
+        case DUPLICATE_KEY:
           data.code = BAD_DATA_CODE;
           data.errorMessage = `Дубликат существующего объявления`;
           break;

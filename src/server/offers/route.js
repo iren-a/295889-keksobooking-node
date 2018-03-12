@@ -11,6 +11,11 @@ const QueryError = require(`../error/query-error`);
 const async = require(`../util/async`);
 const logger = require(`../../logger`);
 
+const SKIP_DEFAULT = 0;
+const LIMIT_DEFAULT = 20;
+
+const upload = multer({storage: multer.memoryStorage()});
+
 const offersRouter = new Router();
 
 offersRouter.use(bodyParser.json());
@@ -20,11 +25,6 @@ offersRouter.use((req, res, next) => {
   res.header(`Access-Control-Allow-Headers`, `Origin, X-Requested-With, Content-Type, Accept`);
   next();
 });
-
-const upload = multer({storage: multer.memoryStorage()});
-
-const SKIP_DEFAULT = 0;
-const LIMIT_DEFAULT = 20;
 
 const toPage = async (cursor, skip, limit) => {
   return {
